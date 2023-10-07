@@ -20,6 +20,7 @@ export default function Home() {
       <h3>State</h3>
 
       <button onClick={incrementNumber}>Tambah</button>
+      
       <p>{number}</p>
       
     </div>
