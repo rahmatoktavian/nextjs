@@ -19,8 +19,9 @@ export default function Home() {
     <div>
       <h3>State</h3>
 
-      <p>{number}</p>
       <button onClick={incrementNumber}>Tambah</button>
+      <p>{number}</p>
+      
     </div>
   )
 }
