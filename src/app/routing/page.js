@@ -1,5 +1,6 @@
 'use client'
 
+// memanggil fungsi link (pindah halaman)
 import Link from 'next/link'
 
 export default function Routing() {

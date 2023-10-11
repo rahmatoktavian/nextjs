@@ -3,10 +3,10 @@
 //memanggil fungsi useState
 import React, { useState } from 'react'
 
-export default function Home() {
+export default function State() {
   //define state : format [namaState, fungsiUbahState] = useState(default value)
   const [number, setNumber] = useState(1)
-
+  
   function incrementNumber() {
     //tambahkan state number yang ada + 1
     let newNumber = number + 1
@@ -21,8 +21,7 @@ export default function Home() {
 
       <button onClick={incrementNumber}>Tambah</button>
       
-      <p>{number}</p>
-      
+      <p>State : {number}</p>
     </div>
   )
 }
