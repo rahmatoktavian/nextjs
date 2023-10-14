@@ -2,6 +2,7 @@
 
 //memanggil fungsi useState
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function State() {
   //define state : format [namaState, fungsiUbahState] = useState(default value)

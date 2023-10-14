@@ -3,34 +3,37 @@
 //memanggil fungsi useState
 import React, { useState } from 'react'
 
-export default function StateArray() {
+export default function ArrayStandard() {
+  
+  //array javascript static
   const data = [
-    { id:1, nama:'Loki' },
-    { id:2, nama:'Hulk' },
-    { id:3, nama:'Iron Man' },
+    { id:1, name:'Loki' },
+    { id:2, name:'Hulk' },
+    { id:3, name:'Iron Man' },
   ]
+
   //define state : format [namaState, fungsiUbahState] = useState(default value)
   const [listData, setListData] = useState(data)
 
   return (
     <div>
-      <h3>State Array</h3>
+      <h3>Array</h3>
 
       <ul>
       {listData.map(row => 
-        <li>ID: {row.id}</li>
+        <li>Name : {row.name}</li>
       )}
       </ul>
 
       <table border='1'>
         <tr>
           <th>ID</th>
-          <th>Nama</th>
+          <th>Name</th>
         </tr>
         {listData.map(row => 
           <tr>
             <td>{row.id}</td>
-            <td>{row.nama}</td>
+            <td>{row.name}</td>
           </tr>
         )}
       </table>
