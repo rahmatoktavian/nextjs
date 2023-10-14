@@ -9,9 +9,9 @@ export default function ArrayAPI() {
 
   //function get data from API
   function getData() {
-    console.log(listData)
     fetch('https://jsonplaceholder.typicode.com/users/')
       .then(response => response.json())
+      //data dari api dimasukan ke state
       .then(json => setListData(json))
   }
 
@@ -19,6 +19,7 @@ export default function ArrayAPI() {
     <div>
       <h3>Array API</h3>
 
+      {/* tombol untuk panggil function getdata API */}
       <button onClick={getData}>Display Data</button>
       <br /><br />
 
@@ -30,6 +31,7 @@ export default function ArrayAPI() {
             <th>Name</th>
             <th>City</th>
           </tr>
+          {/* looping data state dari API */}
           {listData.map(row => 
             <tr>
               <td>{row.id}</td>

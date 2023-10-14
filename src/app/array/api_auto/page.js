@@ -7,15 +7,16 @@ export default function ArrayAPI() {
   //define state : format [namaState, fungsiUbahState] = useState(default [])
   const [listData, setListData] = useState([])
 
+  //agar ketika screen diakses, langsung memanggil getdata
   useEffect(() => {
     getData()
   }, []);
 
   //function get data from API
   function getData() {
-    console.log(listData)
     fetch('https://jsonplaceholder.typicode.com/users/')
       .then(response => response.json())
+      //data dari api dimasukan ke state
       .then(json => setListData(json))
   }
 
