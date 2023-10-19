@@ -12,15 +12,15 @@ export default function CRUDList() {
 
   //agar ketika screen diakses, langsung memanggil getdata
   useEffect(() => {
-    getData2()
+    getData()
   }, []);
 
   //function get data from API
   async function getData() {
     const { data, error } = await supabase
       .from('kategori_buku')
-      .select('id,nama')
-
+      .select('id, nama')
+    
     setListData(data)
   }
 
