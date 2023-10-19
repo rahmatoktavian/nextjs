@@ -7,6 +7,7 @@ export default function ArrayStandard() {
   
   //array javascript static
   const data = [
+    //id:1 -> index:value
     { id:1, name:'Loki' },
     { id:2, name:'Hulk' },
     { id:3, name:'Iron Man' },
@@ -43,6 +44,13 @@ export default function ArrayStandard() {
         )}
         </tbody>
       </table>
+      <br />
+
+      <select>
+        {listData.map(row => 
+        <option>{row.name}</option>
+        )}
+      </select>
     </div>
   )
 }

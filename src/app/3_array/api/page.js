@@ -12,6 +12,7 @@ export default function ArrayAPI() {
     fetch('https://jsonplaceholder.typicode.com/users/')
       .then(response => response.json())
       //data dari api dimasukan ke state
+      //console.log(json) : check data diterima atau tidak
       .then(json => setListData(json))
   }
 
