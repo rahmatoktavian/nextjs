@@ -40,20 +40,22 @@ export default function CRUDList() {
       <h3>Array API</h3>
 
       {/* display if listData not null */}
-      {listData.length > 0 &&
-        <table border='1'>
-          <tr>
-            <th>ID</th>
-            <th>Nama</th>
+      <table border='1'>
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nama</th>
+        </tr>
+        </thead>
+        <tbody>
+        {listData && listData.map((row,index) => 
+          <tr key={index}>
+            <td>{row.id}</td>
+            <td>{row.nama}</td>
           </tr>
-          {listData.map(row => 
-            <tr>
-              <td>{row.id}</td>
-              <td>{row.nama}</td>
-            </tr>
-          )}
-        </table>
-      }
+        )}
+        </tbody>
+      </table>
 
     </div>
   )
