@@ -1,7 +1,7 @@
 'use client'
 
-//memanggil fungsi useState
 import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 //memanggil supabase
 import { supabase } from '../../../supabase'
@@ -20,6 +20,7 @@ export default function CRUDList() {
     const { data, error } = await supabase
       .from('kategori_buku')
       .select('id, nama')
+      .order('id', {ascending:false})
     
     setListData(data)
   }
@@ -38,21 +39,24 @@ export default function CRUDList() {
 
   return (
     <div>
-      <h3>Array API</h3>
+      <h3>List</h3>
+
+      <Link href='/4_crud/insert'>Insert</Link>
+      <br />
 
       {/* display if listData not null */}
       <table border='1'>
         <thead>
         <tr>
-          <th>ID</th>
           <th>Nama</th>
+          <th>Action</th>
         </tr>
         </thead>
         <tbody>
         {listData && listData.map((row,index) => 
           <tr key={index}>
-            <td>{row.id}</td>
             <td>{row.nama}</td>
+            <td><Link href={{ pathname:'/4_crud/update', query:{ id:row.id } }}>Update</Link></td>
           </tr>
         )}
         </tbody>
