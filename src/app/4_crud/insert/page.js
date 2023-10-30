@@ -29,7 +29,7 @@ export default function CRUDInsert() {
       {/* display if listData not null */}
       <form onSubmit={onSubmit}>
         {/* onchange : isi state nama sesuai input */}
-        <input type='text' name='nama' value={nama} onChange={(event) => setNama(event.target.value)} />
+        <input type='text' name='nama' value={nama} onChange={(event) => setNama(event.target.value)} required />
         <br />
         <button type='submit'>Save</button>
       </form>
