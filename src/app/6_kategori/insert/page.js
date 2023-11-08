@@ -11,16 +11,11 @@ import { supabase } from '../../../supabase'
 export default function KategoriInsert() {
   const router = useRouter()
 
-  //param
-  const searchParams = useSearchParams()
-  const id = searchParams.get('id')
-
   async function onFinish(values) {
     const { data, error } = await supabase
       .from('kategori_buku')
       //field db : values form (bukan state)
       .insert({ nama: values.nama })
-      .eq('id', id)
     
     if(error) {
       notification.error({ message:error.message, duration:1 });
