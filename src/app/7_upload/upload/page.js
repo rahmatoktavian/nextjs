@@ -2,8 +2,10 @@
 
 import React, { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { saveAs } from "file-saver";
+
 import { Upload, Button, Image, notification, Popconfirm } from 'antd';
-import { ArrowLeftOutlined, UploadOutlined, DeleteOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, UploadOutlined, DeleteOutlined, DownloadOutlined } from '@ant-design/icons';
 
 //memanggil supabase
 import { supabase } from '../../../supabase'
@@ -143,6 +145,17 @@ export default function KategoriUpload() {
             Delete
           </Button>
         </Popconfirm>
+
+          
+        <Button 
+          type="text" 
+          icon={<DownloadOutlined />}
+          onClick={() => saveAs(cover)}
+        >
+          Download
+        </Button>
+
+        
       </>
 
       // cover not uploaded
