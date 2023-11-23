@@ -35,7 +35,7 @@ export default function KategoriUpload() {
   }
 
   async function uploadFile(event) {
-    //get uploaded file
+    // get uploaded file
     const fileIndex = event.fileList.length - 1;
     const fileUpload = event.fileList[fileIndex].originFileObj;
 
@@ -119,18 +119,8 @@ export default function KategoriUpload() {
       </Button>
       <br /><br />
       
-      <Upload 
-        accept=".jpg, .jpeg, .png"
-        onChange={uploadFile}
-        showUploadList={false}
-        beforeUpload={() => false}
-      >
-        <Button type='primary' icon={<UploadOutlined />}>Click to Upload</Button>
-      </Upload>
-      <br />
-
       {/* delete file, display if file uploaded before */}
-      {cover &&
+      {cover ?
       <>
         <Image
           src={cover}
@@ -154,6 +144,17 @@ export default function KategoriUpload() {
           </Button>
         </Popconfirm>
       </>
+
+      // cover not uploaded
+      :
+      <Upload 
+        accept=".jpg, .jpeg, .png"
+        onChange={uploadFile}
+        showUploadList={false}
+        beforeUpload={() => false}
+      >
+        <Button type='primary' icon={<UploadOutlined />}>Click to Upload</Button>
+      </Upload>
       }
 
     </div>
