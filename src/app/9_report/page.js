@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import { Button, Table } from 'antd';
-import { DownloadOutlined } from '@ant-design/icons';
+import { Table, Input, Button } from 'antd';
+import { DownloadOutlined, SearchOutlined } from '@ant-design/icons';
 import { supabase } from '../../supabase';
 
 //export excel
@@ -10,19 +10,32 @@ import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 
 export default function LaporanDetail() {
-  //data state
+  //state for table
   const [listData, setListData] = useState([]);
+
+  //state for searching
+  const [searchNama, setSearchNama] = useState('');
 
   //initial function (first function will run in this page)
   useEffect(() => {
     getData();
-  }, []);
+
+  // state searchNama diletakan disini agar setiap ada perubahan data memanggil getData
+  }, [searchNama]);
 
   const getData = async() => {
-    const { data, error } = await supabase
-      .from('kategori_buku')
-      .select('id, nama')
-      .order('id', {ascending:true})
+    let query = supabase
+    .from('kategori_buku')
+    .select('id, nama')
+    .order('id', {ascending:true})
+
+    //if searchNam tidak kosong, maka query ditambahkan where like
+    if(searchNama) {
+      query = query.ilike('nama', '%'+searchNama+'%')
+    }
+
+    //execute query
+    const { data, error } = await query
 
     setListData(data)
   }
@@ -65,6 +78,13 @@ export default function LaporanDetail() {
   //display data
   return (
     <>
+      <Input 
+        prefix={<SearchOutlined />}
+        placeholder="Cari Nama" 
+        onChange={(event) => setSearchNama(event.target.value)} 
+        style={{width:250}}
+      />
+
       <Table columns={tableColumn} dataSource={listData} />
       <Button type="primary" onClick={() => exportExcel()} icon={<DownloadOutlined />} style={{backgroundColor:'green'}}> Excel</Button>
     </>
