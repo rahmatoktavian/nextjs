@@ -35,7 +35,7 @@ const menuItem = [
     children: [
       {
         label: 'Chart',
-        key: 'menu/chart'
+        key: 'menu/chart',
       },
       {
         label: 'Report',
@@ -89,7 +89,7 @@ export default function RootLayout({children}) {
               <Menu
                 onClick={onClick}
                 defaultOpenKeys={['dashboard']}
-                defaultSelectedKeys={['dashboard']}
+                defaultSelectedKeys={['menu/chart']}
                 mode="inline"
                 items={menuItem}
                 style={{backgroundColor: '#f5f5f5',}}
