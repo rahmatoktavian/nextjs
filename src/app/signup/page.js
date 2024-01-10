@@ -1,10 +1,11 @@
 'use client'
 
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Row, Col, Form, Button, Input, message } from 'antd';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
-export default function Signin() {
+export default function Singup() {
   //supabase auth
   const supabase = createClientComponentClient()
 
@@ -19,28 +20,28 @@ export default function Signin() {
 
   //login process
   const onSubmit = async(input) => {
-    //login
-    const { data, error } = await supabase.auth.signInWithPassword({
+    // signup
+    const { data, error } = await supabase.auth.signUp({
       email: input.email,
       password: input.password,
     })
 
-    //check user type
-    const { data:data_user } = await supabase
-      .from('user')
-      .select('anggota_id, petugas_id')
-      .eq('email', input.email)
-      .single()
+    const { data:anggota } = await supabase
+      .from('anggota')
+      .insert({ nim:input.nim, nama:input.nama, email:input.email })
+      .select()
 
-    //if user type : petugas to menu/chart, anggota to peminjaman_saya
-    const destination_url = data_user.petugas_id !== null ? 'menu/chart' : 'menu/peminjaman_saya'
+    //insert table user
+    await supabase
+      .from('user')
+      .insert({ email:input.email, anggota_id:anggota[0].id })
 
     //display message
     if(error) {
       messageApi.error(error.message, 1);
     } else {
-      messageApi.success('Berhasil Login', 1);
-      router.push(destination_url)
+      messageApi.success('Berhasil Register', 3);
+      router.push('/signin')
     }
   }
 
@@ -51,12 +52,28 @@ export default function Signin() {
       <Col span={9}></Col>
       <Col span={6}>
         <Form
-          name="signin"
+          name="signup"
           layout="vertical"
           onFinish={onSubmit}
           form={form}
           
         >
+          <Form.Item 
+            label="NIM" 
+            name="nim"
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item 
+            label="Nama" 
+            name="nama"
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+
           <Form.Item 
             label="Email" 
             name="email"
@@ -75,13 +92,13 @@ export default function Signin() {
 
           <Form.Item>
             <Button type="primary" block htmlType="submit">
-              Login
+              Register Anggota
             </Button>
           </Form.Item>
 
           <Form.Item>
-            <Button type="default" block onClick={() => router.push('signup')}>
-              Register Anggota
+            <Button type="default" block onClick={() => router.push('signin')}>
+              Login
             </Button>
           </Form.Item>
         </Form>

@@ -87,7 +87,7 @@ export default function LaporanDetail() {
         style={{width:250}}
       />
 
-      <Table columns={tableColumn} dataSource={listData} />
+      <Table columns={tableColumn} dataSource={listData} rowKey="id" />
       <Button type="primary" onClick={() => exportExcel()} icon={<DownloadOutlined />} style={{backgroundColor:'green'}}> Excel</Button>
     </>
   )

@@ -1,9 +1,8 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ConfigProvider, Layout, Space, Menu, Button } from 'antd';
-import { BookOutlined, DashboardOutlined, SettingOutlined } from '@ant-design/icons';
+import { DashboardOutlined, SettingOutlined } from '@ant-design/icons';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 //theme
@@ -28,7 +27,7 @@ const footerStyle = {
 };
 
 //menu item
-const menuItemPetugas = [
+const menuItem = [
   {
     label: 'Dashboard',
     key: 'dashboard',
@@ -36,18 +35,13 @@ const menuItemPetugas = [
     children: [
       {
         label: 'Chart',
-        key: 'menu/chart',
+        key: 'menu/chart'
       },
       {
         label: 'Report',
         key: 'menu/report'
       },
     ],
-  },
-  {
-    label: 'Peminjaman',
-    key: 'menu/peminjaman/list',
-    icon: <BookOutlined />,
   },
   {
     label: 'Setting',
@@ -62,38 +56,9 @@ const menuItemPetugas = [
   }
 ]
 
-const menuItemAnggota = [
-  {
-    label: 'Peminjaman Saya',
-    key: 'menu/peminjaman_saya',
-    icon: <BookOutlined />,
-  }
-]
-
 export default function RootLayout({children}) {
   const supabase = createClientComponentClient()
   const router = useRouter();
-
-  const [userType, setUserType] = useState('')
-
-  useEffect(() => {
-    checkUser()
-  }, []);
-
-  //cara akses api via libary supabase
-  async function checkUser() {
-    const session = await supabase.auth.getSession()
-    const email = session?.data ? session.data.session.user.email : null
-
-    const { data, error } = await supabase
-      .from('user')
-      .select('anggota_id, petugas_id')
-      .eq('email', email)
-      .single()
-
-    const userTypeData = data.petugas_id !== null ? 'petugas' : 'anggota';
-    setUserType(userTypeData)
-  }
 
   const onClick = (menuData) => {
     let page = menuData.key;
@@ -124,10 +89,10 @@ export default function RootLayout({children}) {
               <Menu
                 onClick={onClick}
                 defaultOpenKeys={['dashboard']}
-                defaultSelectedKeys={['menu/chart']}
+                defaultSelectedKeys={['dashboard']}
                 mode="inline"
-                items={userType == 'petugas' ? menuItemPetugas : menuItemAnggota}
-                style={{backgroundColor:'#f5f5f5'}}
+                items={menuItem}
+                style={{backgroundColor: '#f5f5f5',}}
               />
             </Sider>
             <Content style={contentStyle}>{children}</Content>
