@@ -91,7 +91,17 @@ export default function RootLayout({children}) {
       .eq('email', email)
       .single()
 
-    const userTypeData = data.petugas_id !== null ? 'petugas' : 'anggota';
+    let userTypeData = '';
+
+    //petugas login
+    if(data.petugas_id !== null) {
+      userTypeData = 'petugas'
+
+    //anggota login
+    } else if(data.anggota_id !== null) {
+      userTypeData = 'anggota';
+    }
+
     setUserType(userTypeData)
   }
 

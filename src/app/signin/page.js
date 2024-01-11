@@ -19,28 +19,44 @@ export default function Signin() {
 
   //login process
   const onSubmit = async(input) => {
-    //login
+    //check login
     const { data, error } = await supabase.auth.signInWithPassword({
       email: input.email,
       password: input.password,
     })
 
-    //check user type
-    const { data:data_user } = await supabase
-      .from('user')
-      .select('anggota_id, petugas_id')
-      .eq('email', input.email)
-      .single()
-
-    //if user type : petugas to menu/chart, anggota to peminjaman_saya
-    const destination_url = data_user.petugas_id !== null ? 'menu/chart' : 'menu/peminjaman_saya'
-
-    //display message
+    //if user not registered
     if(error) {
       messageApi.error(error.message, 1);
+
+    //user not registered
     } else {
-      messageApi.success('Berhasil Login', 1);
-      router.push(destination_url)
+      //check user type
+      const { data:data_user } = await supabase
+        .from('user')
+        .select('anggota_id, petugas_id')
+        .eq('email', input.email)
+        .single()
+
+      //page after login succeed
+      let destination_url = '';
+      
+      //if user login : petugas
+      if(data_user.petugas_id !== null) {
+        destination_url = 'menu/chart'
+
+      //if user login : anggota
+      } else if(data_user.anggota_id !== null) {
+        destination_url = 'menu/peminjaman_saya'
+      }
+
+      //display message
+      if(error) {
+        messageApi.error(error.message, 1);
+      } else {
+        messageApi.success('Berhasil Login', 1);
+        router.push(destination_url)
+      }
     }
   }
 
