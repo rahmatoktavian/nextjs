@@ -15,7 +15,22 @@ export default function Home() {
   async function checkUser() {
     const session = await supabase.auth.getSession()
     if(session.data) {
-      router.push('/menu/chart')
+      const email = session?.data ? session.data.session.user.email : null
+      const { data:data_user } = await supabase
+        .from('user')
+        .select('anggota_id, petugas_id')
+        .eq('email', email)
+        .single()
+      
+      //if user login : petugas
+      if(data_user.petugas_id !== null) {
+        router.push('menu/chart')
+
+      //if user login : anggota
+      } else if(data_user.anggota_id !== null) {
+        router.push('menu/peminjaman_saya')
+      }
+
     } else {
       router.push('/signin')
     }
