@@ -33,7 +33,7 @@ export default function PeminjamanSaya() {
     const taskListener = supabase
       .channel('room1')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'peminjaman' }, payload => {
-        console.log('Change received!', payload)
+        // console.log('Change received!', payload)
         getData()
       })
       .subscribe()
