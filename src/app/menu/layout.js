@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ConfigProvider, Layout, Space, Menu, Button } from 'antd';
-import { BookOutlined, DashboardOutlined, SettingOutlined } from '@ant-design/icons';
+import Icon, { BookOutlined, DashboardOutlined, SettingOutlined } from '@ant-design/icons';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 //theme
@@ -66,6 +66,11 @@ const menuItemAnggota = [
   {
     label: 'Peminjaman Saya',
     key: 'menu/peminjaman_saya',
+    icon: <BookOutlined />,
+  },
+  {
+    label: 'Peminjaman Realtime',
+    key: 'menu/peminjaman_saya_realtime',
     icon: <BookOutlined />,
   }
 ]

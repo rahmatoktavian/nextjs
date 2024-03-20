@@ -14,7 +14,7 @@ export default function Home() {
 
   async function checkUser() {
     const session = await supabase.auth.getSession()
-    if(session.data) {
+    if(session.data.session) {
       const email = session?.data ? session.data.session.user.email : null
       const { data:data_user } = await supabase
         .from('user')

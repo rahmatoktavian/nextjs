@@ -19,9 +19,9 @@ export default function ManyList() {
   async function getData() {
     const { data, error } = await supabase
       .from('buku')
-      .select('id, judul, kategori_buku(nama)')
+      .select('id, id.min(), judul, kategori_buku(nama)')
       .order('id', {ascending:false})
-    
+
     setListData(data)
   }
 
